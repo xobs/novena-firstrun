@@ -1,0 +1,9 @@
+/debian/files
+/debian/tmp
+/debian/novena-firstrun.debhelper.log
+/debian/novena-firstrun.substvars
+debian/novena-firstrun.*.debhelper
+/debian/novena-firstrun/
+*.swp
+*.swo
+*~

@@ -1,0 +1,18 @@
+#!/usr/bin/make -f
+# See debhelper(7) (uncomment to enable)
+# output every command that modifies files on the build system.
+#DH_VERBOSE = 1
+
+# see EXAMPLES in dpkg-buildflags(1) and read /usr/share/dpkg/*
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/default.mk
+
+override_dh_prep:
+	mkdir -p debian/tmp
+	cp novena-firstrun debian/tmp
+	cp novena-firstrun.8 debian/tmp
+	cp wordlist.txt debian/tmp
+
+# main packaging script based on dh7 syntax
+%:
+	dh $@ --with=systemd

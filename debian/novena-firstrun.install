@@ -1,0 +1,4 @@
+#!/bin/sh
+echo novena-firstrun /usr/sbin/
+echo wordlist.txt /usr/share/novena-firstrun/
+echo novena-firstrun.8 /usr/share/man/man8/

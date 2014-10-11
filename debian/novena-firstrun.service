@@ -1,0 +1,18 @@
+[Unit]
+Description=Novena First Boot
+DefaultDependencies=no
+After=dbus.service network-pre.target systemd-sysusers.service
+Before=systemd-network.target network.target multi-user.target shutdown.target
+ConditionPathExists=/var/lib/firstrun
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+Restart=no
+ExecStart=/usr/sbin/novena-firstrun
+User=root
+StandardInput=tty
+StandardOutput=tty
+
+[Install]
+WantedBy=multi-user.target

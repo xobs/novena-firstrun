@@ -1,0 +1,16 @@
+.TH NOVENA-FIRSTRUN 8 "11 Oct 2014" Novena "Linux System Administration"
+.SH NAME
+novena-firstrun \- setup Novena packages on a new machine
+.SH SYNOPSIS
+.B novena-firstrun
+
+.SH DESCRIPTION
+.LP
+When shipped from the factory, Novena boards need to be configured by the
+user.  This includes creating user accounts, setitng timezones, and setting
+a root password.  This script takes care of doing that.
+
+For the most part, it simply runs dpkg-reconfigure, but it also generates a
+random hostname as part of the process.
+.SH AUTHORS
+Written by Sean Cross <xobs@kosagi.com>

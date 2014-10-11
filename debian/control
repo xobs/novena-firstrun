@@ -1,0 +1,17 @@
+Source: novena-firstrun
+Section: admin
+Priority: optional
+Maintainer: Sean Cross <sean@kosagi.com>
+Build-Depends: debhelper (>= 9), dh-systemd (>= 1.3)
+Standards-Version: 3.9.6
+Homepage: http://kosagi.com/
+Vcs-Git: git://github.com/xobs/novena-firstrun.git
+Vcs-Browser: https://github.com/xobs/novena-firstrun
+
+Package: novena-firstrun
+Architecture: all
+Depends: ${misc:Depends}
+Description: Script to set up Novena when it is first booted
+ When a Novena is booted for the first time, there are various config knobs
+ that will need to be tuned on a per-user basis.  Things like timezone and
+ keyboard layout.  novena-firstrun will take care of this.

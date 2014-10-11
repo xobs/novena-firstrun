@@ -1,0 +1,81 @@
+#!/bin/sh
+
+firstrun_file=/var/lib/firstrun
+
+# Reconfigure basic things, like timezone and keyboard layout
+dpkg-reconfigure console-data locales tzdata
+
+# Reset the root password
+while true
+do
+	newpasswd=$(whiptail --passwordbox "Enter a new root password, or 'Cancel' to leave the password as 'kosagi'" 10 60 3>&1 1>&2 2>&3)
+	if [ $? -ne 0 ]
+	then
+		break
+	fi
+	newpasswd2=$(whiptail --passwordbox "Re-enter the password just to make sure, or 'Cancel' to leave the password as 'kosagi'" 10 60 3>&1 1>&2 2>&3)
+	if [ $? -ne 0 ]
+	then
+		break
+	fi
+
+	if [ "${newpasswd}" != "${newpasswd2}" ]
+	then
+		whiptail --msgbox "Passwords do not match.  Please try again." 10 60
+		continue
+	fi
+
+	if [ -z "${newpasswd}" ]
+	then
+		if whiptail --yesno "Are you sure you want to set a blank root password?" 10 60
+		then
+			passwd -d root
+			break
+		fi
+		continue
+	fi
+
+	echo "root:${newpasswd}" | /usr/sbin/chpasswd
+	if [ $? -ne 0 ]
+	then
+		whiptail --msgbox "An error occurred while changing the root password." 10 60
+		continue
+	fi
+	break
+done
+
+# Set up a new user account
+/usr/bin/user-setup
+
+# Come up with a hostname.  wordlist.txt contains a one-line header, followed
+# by a padded, spaced list of interesting words.
+# 1) Strip off the header
+# 2) Convert the space-padding into linefeeds, deduplicating spaces
+# 3) Randomly order the list
+# 4) Take the top two words
+# 5) Convert the linefeed into a hyphen
+# 6) Remove the trailing hyphen
+# 7) Prefix the word "novena-"
+while true
+do
+	wordlist="/usr/share/novena-firstrun/wordlist.txt"
+	namechars=2
+	default_hostname=$(sed 1d < "${wordlist}" | \
+		    tr -s ' ' '\n' | \
+		    sort -R | \
+		    head -n ${namechars} | \
+		    tr '\n' '-' | \
+		    sed 's/-$//' | \
+		    awk '{print "novena-"$0}')
+	hostname=$(whiptail --title="Set Hostname" --inputbox "Enter your hostname, or press Enter to use the default, randomized, auto-generated one:" 10 60 "${default_hostname}" --nocancel 3>&1 1>&2 2>&3)
+	echo "${hostname}" > /etc/hostname
+	if hostname "${hostname}"
+	then
+		sed -i "s/localhost/localhost ${hostname}/" /etc/hosts
+		echo "Your new hostname is ${hostname}"
+		break;
+	fi
+done
+
+# All done, remove the "firstrun" file so we don't run again next boot.
+rm -f "${firstrun_file}"
