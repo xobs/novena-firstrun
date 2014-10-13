@@ -47,6 +47,14 @@ done
 # Set up a new user account
 /usr/bin/user-setup
 
+# If a new user was created, they'll have the user id of 1000.  Add them
+# to various interesting groups.
+if grep -q :1000: /etc/passwd
+then
+	newid=$(grep :1000: /etc/passwd | cut -d: -f1)
+	usermod -G dialout,sudo,audio,video,pulse,i2c,systemd-journal,systemd-timesync,systemd-network,systemd-resolve,scanner,bluetooth,i2c,pulse-access "${newid}"
+fi
+
 # Come up with a hostname.  wordlist.txt contains a one-line header, followed
 # by a padded, spaced list of interesting words.
 # 1) Strip off the header
