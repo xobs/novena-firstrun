@@ -81,6 +81,9 @@ do
 	then
 		sed -i "s/localhost/localhost ${hostname}/" /etc/hosts
 		echo "Your new hostname is ${hostname}"
+
+		# Restart avahi to pick up new name
+		systemctl restart avahi-daemon.service
 		break;
 	fi
 done
