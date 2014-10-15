@@ -85,5 +85,12 @@ do
 	fi
 done
 
+if whiptail --title="Enable Lightdm" --yesno "Would you like to enable graphical logins?"
+then
+	systemctl enable lightdm.service
+else
+	systemctl disable lightdm.service
+fi
+
 # All done, remove the "firstrun" file so we don't run again next boot.
 rm -f "${firstrun_file}"
