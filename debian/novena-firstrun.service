@@ -2,7 +2,7 @@
 Description=Novena First Boot
 DefaultDependencies=no
 After=dbus.service network-pre.target systemd-sysusers.service
-Before=systemd-network.target network.target multi-user.target shutdown.target
+Before=systemd-network.target network.target multi-user.target shutdown.target graphical.target systemd-user-sessions.service
 ConditionPathExists=/var/lib/firstrun
 
 [Service]
