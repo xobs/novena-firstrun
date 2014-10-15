@@ -88,7 +88,7 @@ do
 	fi
 done
 
-if whiptail --title="Enable Lightdm" --yesno "Would you like to enable graphical logins?"
+if whiptail --title="Enable Lightdm" --yesno "Would you like to enable graphical logins?" 10 60
 then
 	systemctl enable lightdm.service
 else
