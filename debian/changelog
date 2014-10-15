@@ -1,3 +1,9 @@
+novena-firstrun (1.1-r1) unstable; urgency=medium
+
+  * Enable lightdm only if requested
+
+ -- Sean Cross <xobs@kosagi.com>  Wed, 15 Oct 2014 16:44:43 +0800
+
 novena-firstrun (1.0-r1) unstable; urgency=low
 
   * Initial release
