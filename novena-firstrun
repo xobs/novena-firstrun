@@ -88,6 +88,13 @@ do
 	fi
 done
 
+if whiptail --title="Run netselect-apt" --yesno "Would you like to run a speed test to determine the best Debian mirrors for you to use?" 10 60
+then
+	netselect-apt
+else
+	whiptail --title="Run netselect-apt" --msgbox "Okay.  You will be set up to use the US mirror.\n\nTo change this later, run 'netselect-apt'." 10 60
+fi
+
 if whiptail --title="Enable Lightdm" --yesno "Would you like to enable graphical logins?" 10 60
 then
 	systemctl enable lightdm.service
