@@ -1,3 +1,9 @@
+novena-firstrun (1.3-r1) unstable; urgency=medium
+
+  * Fix mirror management
+
+ -- Sean Cross <xobs@kosagi.com>  Thu, 16 Oct 2014 11:58:03 +0800
+
 novena-firstrun (1.1-r1) unstable; urgency=medium
 
   * Enable lightdm only if requested
