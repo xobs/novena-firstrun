@@ -72,10 +72,6 @@ create_keys() {
 		"$hostkeys" /etc/ssh/ssh_host_ed25519_key -t ed25519
 }
 
-# Recreate SSH keys separately here, because otherwise it hangs following
-# the dpkg-reconfigure of openssh-server
-create_keys
-
 # Reconfigure basic things, like timezone and keyboard layout
 dpkg-reconfigure console-data locales tzdata
 
@@ -161,6 +157,11 @@ do
 		break;
 	fi
 done
+
+# Recreate SSH keys separately here, because otherwise it hangs following
+# the dpkg-reconfigure of openssh-server.
+# We must have a hostname set before we do this.
+create_keys
 
 # Set up Debian mirrors
 cat > /etc/apt/sources.list <<EOF
