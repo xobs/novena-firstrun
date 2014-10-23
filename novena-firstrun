@@ -146,9 +146,9 @@ do
 		    sed 's/-$//' | \
 		    awk '{print "novena-"$0}')
 	hostname=$(whiptail --title="Set Hostname" --inputbox "Enter your hostname, or press Enter to use the default, randomized, auto-generated one:" 10 60 "${default_hostname}" --nocancel 3>&1 1>&2 2>&3)
-	echo "${hostname}" > /etc/hostname
 	if hostname "${hostname}"
 	then
+		echo "${hostname}" > /etc/hostname
 		sed -i "s/localhost/localhost ${hostname}/" /etc/hosts
 		echo "Your new hostname is ${hostname}"
 
