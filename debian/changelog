@@ -1,3 +1,9 @@
+novena-firstrun (1.6-r1) unstable; urgency=medium
+
+  * Create /var/log/journal to save journal logs
+
+ -- Sean Cross <xobs@kosagi.com>  Fri, 14 Nov 2014 21:15:25 +0800
+
 novena-firstrun (1.5-r1) unstable; urgency=medium
 
   * Disable mirror management (it doesn't work)

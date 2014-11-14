@@ -171,6 +171,7 @@ deb http://security.debian.org/ jessie/updates main contrib non-free
 deb-src http://security.debian.org/ jessie/updates main contrib non-free
 EOF
 
+# Ask the user if they want to support graphical logins
 if whiptail --title="Enable Lightdm" --yesno "Would you like to enable graphical logins?" 10 60
 then
 	systemctl enable lightdm.service
@@ -178,6 +179,9 @@ else
 	systemctl disable lightdm.service
 	systemctl stop lightdm.service
 fi
+
+# Set up systemd journal directory, so logs persist across boots
+mkdir -p /var/log/journal
 
 # All done, remove the "firstrun" file so we don't run again next boot.
 rm -f "${firstrun_file}"
